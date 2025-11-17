@@ -72,6 +72,63 @@ El desarrollo de este proyecto, como requisito de la asignatura, debe involucrar
 * *SQL (Structured Query Language):* Es el lenguaje estándar utilizado para gestionar y consultar bases de datos relacionales.
 
 ---
+## CAPÍTULO III: METODOLOGÍA SEGUIDA
+
+En este capítulo se presenta el plan seguido y las acciones llevadas a cabo para realizar el trabajo, describiendo los pasos, actividades e instrumentos utilizados.
+
+### 3.1 Fases del Proyecto
+
+El desarrollo del proyecto de base de datos se estructuró en las siguientes fases:
+
+1.  *Educción de Requisitos:* Se investigaron las necesidades y problemas de los usuarios clave.
+2.  *Especificación de Requisitos:* Se documentaron los requisitos funcionales y no funcionales que la base de datos debe soportar.
+3.  *Diseño Conceptual y Lógico:* Se creó el Diagrama Entidad-Relación y el Diagrama Relacional.
+4.  *Implementación:* Se generó el Diccionario de Datos como paso previo a la creación de los scripts SQL para la implementación física.
+
+### 3.2 Método de Educción de Requisitos
+
+Para obtener los datos sobre las necesidades del sistema, se empleó la técnica de *entrevistas estructuradas*, dirigidas a los dos perfiles clave:
+
+* *Jugadores* (usuarios finales de las reservas).
+* *Cancheros* (administradores del sistema).
+
+Esta técnica permitió obtener información precisa sobre los problemas de la gestión manual. Se incluyeron preguntas abiertas, cerradas y bipolares.
+
+#### 3.2.1 Preguntas a jugadores
+* ¿Con qué frecuencia reservas una cancha?
+* ¿Qué dificultades enfrentan al reservar?
+* ¿Te gustaría recibir confirmaciones automáticas?
+
+#### 3.2.2 Preguntas a cancheros
+* ¿Cómo gestionan actualmente los turnos?
+* ¿Qué problemas surgen en la administración diaria?
+* ¿Necesitás ver reportes o estadísticas?
+* ¿Te interesaría agregar reservas manuales?
+
+### 3.3 Requisitos Funcionales (RF) Relevantes para la BD
+
+A partir de la educción, se definieron los requisitos funcionales que la base de datos debe ser capaz de soportar. Los más relevantes para el diseño de datos son:
+
+| $N^{\circ}$ | Descripción |
+| :--- | :--- |
+| *RF#1* | El sistema deberá permitir a los jugadores visualizar un calendario de turnos. |
+| *RF#2* | El sistema deberá permitir seleccionar cancha, fecha y horario entre los disponibles. |
+| *RF#3* | El sistema deberá registrar reservas con confirmación automática. |
+| *RF#4* | El sistema deberá permitir al canchero modificar, cancelar o agregar reservas manualmente. |
+| *RF#5* | El sistema deberá mostrar el estado de pago de cada reserva. |
+| *RF#6* | El sistema deberá permitir al jugador elegir el método de pago. |
+| *RF#8* | El sistema deberá validar conflictos de horarios antes de confirmar reservas. |
+| *RF#9* | El sistema deberá mostrar un resumen diario de reservas al canchero. |
+
+### 3.4 Herramientas Utilizadas
+
+Para la gestión y diseño del proyecto se utilizaron las siguientes herramientas:
+
+* *Herramientas de modelado de datos:* Se utilizaron herramientas gráficas para la creación del Diagrama Entidad-Relación y el Diagrama Relacional.
+* *Trello:* Para la organización de tareas y seguimiento del proyecto.
+* *Procesadores de texto y hojas de cálculo:* Para la elaboración del Diccionario de Datos y la documentación del informe.
+
+---
 
 ## CAPÍTULO IV: DESARROLLO DEL TEMA / PRESENTACIÓN DE RESULTADOS 
 
