@@ -1,11 +1,8 @@
-CREATE DATABASE TurnosYa; 
-use TurnosYa; 
-
 -- TABLA ROLES
--- Tabla para definir los roles de los usuarios (ej: Administrador, Canchero).
+-- Tabla para definir los roles de los usuarios (ej: Administrador, Canchero, Jugador).
 CREATE TABLE roles (
     id_rol          INT IDENTITY(1,1)   NOT NULL,
-    nombre_rol      VARCHAR(60)         NOT NULL, -- Nombre del rol (ej: 'Admin', 'Canchero')
+    nombre_rol      VARCHAR(60)         NOT NULL, -- Nombre del rol (ej: 'Admin', 'Canchero', 'Jugador')
 
     -- RESTRICCIONES
     CONSTRAINT PK_roles PRIMARY KEY (id_rol),
@@ -14,14 +11,16 @@ CREATE TABLE roles (
 GO
 
 -- TABLA USUARIO
--- Tabla para almacenar la información de los usuarios (login).
+-- Tabla para almacenar la información de los usuarios (login y datos personales).
 CREATE TABLE usuario (
     id_usuario      INT IDENTITY(1,1)   NOT NULL,
     nombre          VARCHAR(60)         NOT NULL,
-    Apellido        VARCHAR(60)         NOT NULL,
+    apellido        VARCHAR(60)         NOT NULL,
     email           VARCHAR(120)        NOT NULL,
-    contraseña      VARBINARY(256)      NULL,    -- Almacenar como HASH.
+    contraseña      VARBINARY(256)      NULL,     -- Almacenar como HASH.
     activo          INT                 NOT NULL, -- 1 para activo, 0 para inactivo.
+    telefono        VARCHAR(25)         NULL,     -- Dato de tu script original
+    dni             VARCHAR(20)         NOT NULL, -- Dato de tu script original (cambiado a VARCHAR)
     id_rol          INT                 NOT NULL, -- FK de roles.
 
     -- RESTRICCIONES
@@ -29,20 +28,22 @@ CREATE TABLE usuario (
     CONSTRAINT FK_usuario_rol
         FOREIGN KEY (id_rol) REFERENCES roles(id_rol),
     CONSTRAINT UQ_usuario_email UNIQUE (email), -- El email debe ser único.
+    CONSTRAINT UQ_usuario_dni UNIQUE (dni),     -- El DNI debe ser único.
     CONSTRAINT CK_usuario_email CHECK (email LIKE '%@%.%') -- Validación de formato de email.
 );
 GO
 
--- TABLA JUGADOR
--- Tabla para almacenar datos adicionales específicos de los jugadores (contacto).
+-- TABLA JUGADOR (SUBTIPO DE USUARIO)
+-- Esta tabla implementa la especialización de 'usuario'. Solo los ID de usuarios que existan aquí son considerados 'Jugadores'.
+
 CREATE TABLE jugador (
-    id_jugador      INT IDENTITY(1,1)   NOT NULL,
-    nombre          VARCHAR(60)         NOT NULL,
-    apellido        VARCHAR(60)         NOT NULL,
-    telefono        VARCHAR(25)         NULL,
+    id_usuario_jugador INT NOT NULL, -- Es PK y FK a la vez.
 
     -- RESTRICCIONES
-    CONSTRAINT PK_jugador PRIMARY KEY (id_jugador)
+    CONSTRAINT PK_jugador PRIMARY KEY (id_usuario_jugador),
+    CONSTRAINT FK_jugador_usuario
+        FOREIGN KEY (id_usuario_jugador) REFERENCES usuario(id_usuario)
+        ON DELETE CASCADE -- Si se borra el usuario, se borra el registro de jugador.
 );
 GO
 
@@ -62,7 +63,7 @@ GO
 -- Tabla que define el estado de una reserva (ej: Pendiente, Confirmada, Cancelada).
 CREATE TABLE estado (
     id_estado       INT IDENTITY(1,1)   NOT NULL,
-    estado          VARCHAR(40)         NOT NULL,
+    estado          VARCHAR(40)         NOT NULL, -- (ej: 'Pendiente', 'Confirmada')
     id_pago         INT                 NULL,     -- FK de metodo_pago (NULL si no está pagado).
 
     -- RESTRICCIONES
@@ -90,7 +91,7 @@ CREATE TABLE cancha (
     id_cancha       INT IDENTITY(1,1)   NOT NULL,
     nro_cancha      INT                 NOT NULL,
     ubicacion       VARCHAR(150)        NOT NULL,
-    precio_hora     DECIMAL(12,2)       NOT NULL,
+    precio_hora     DECIMAL(12,2)       NOT NULL, -- Usamos DECIMAL para dinero, no FLOAT
     id_tipo         INT                 NOT NULL, -- FK de tipo de cancha.
 
     -- RESTRICCIONES
@@ -108,23 +109,25 @@ GO
 CREATE TABLE reserva (
     id_reserva      INT IDENTITY(1,1)   NOT NULL,
     fecha           DATE                NOT NULL,
-    hora            TIME(0)             NOT NULL,
-    duracion        VARCHAR(50)         NOT NULL, 
-    id_usuario      INT                 NOT NULL, -- FK de usuario (quien reserva o administra).
+    hora            TIME(0)             NOT NULL, -- Usamos TIME, no VARCHAR
+    duracion        VARCHAR(50)         NOT NULL, -- (ej: '60 min', '90 min')
+    id_jugador      INT                 NOT NULL, -- FK a la tabla 'jugador' (quien reserva y juega).
     id_estado       INT                 NOT NULL, -- FK de estado.
-    id_jugador      INT                 NOT NULL, -- FK de jugador (datos de contacto).
     id_cancha       INT                 NOT NULL, -- FK de cancha.
 
     -- RESTRICCIONES
     CONSTRAINT PK_reserva PRIMARY KEY (id_reserva),
-    CONSTRAINT FK_reserva_usuario
-        FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    
+
+    CONSTRAINT FK_reserva_jugador
+        FOREIGN KEY (id_jugador) REFERENCES jugador(id_usuario_jugador),
+        
     CONSTRAINT FK_reserva_estado
         FOREIGN KEY (id_estado) REFERENCES estado(id_estado),
-    CONSTRAINT FK_reserva_jugador
-        FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador),
     CONSTRAINT FK_reserva_cancha
         FOREIGN KEY (id_cancha) REFERENCES cancha(id_cancha),
-    CONSTRAINT UQ_reserva_momento UNIQUE (fecha, hora, id_cancha) --Una misma cancha no pueda tener dos reservas en la misma fecha y hora.
+    
+    -- Una misma cancha no pueda tener dos reservas en la misma fecha y hora.
+    CONSTRAINT UQ_reserva_momento UNIQUE (fecha, hora, id_cancha)
 );
 GO
