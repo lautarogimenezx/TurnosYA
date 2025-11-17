@@ -54,6 +54,23 @@ Desarrollar una base de datos que permita automatizar el proceso de reserva de c
 #### 1.3.3 Fundamentación
 La necesidad de automatizar el proceso de gestión de canchas se basa en las dificultades reportadas por usuarios, quienes manifestaron problemas en la coordinación manual de turnos, errores en la disponibilidad y falta de control sobre pagos. El desarrollo de esta herramienta responde a esas demandas reales, mejorando la eficiencia operativa y la satisfacción de los usuarios.
 
+## CAPÍTULO II: MARCO CONCEPTUAL REFERENCIAL
+
+Este capítulo sitúa el problema dentro de un conjunto de conocimientos que permiten orientar la búsqueda y ofrecen una conceptualización adecuada de los términos utilizados.
+
+### 2.1 Estado del Arte (Situación del Problema)
+
+Como se mencionó en el caso de estudio, existe una amplia gama de aplicaciones para la gestión de espacios deportivos. Sin embargo, se detecta una brecha en soluciones que sean simultáneamente simples, accesibles para pequeños centros y que resuelvan los problemas centrales de la gestión manual. Los sistemas actuales a menudo fallan por depender de comunicación manual (redes sociales, teléfono), lo que introduce errores de disponibilidad, demoras en la confirmación y una gestión de pagos deficiente. Este proyecto se enfoca en resolver estos puntos débiles mediante una base de datos centralizada.
+
+### 2.2 Conceptos Teóricos de Bases de Datos
+
+El desarrollo de este proyecto, como requisito de la asignatura, debe involucrar los conceptos teóricos de los motores de bases de datos aplicados a un caso práctico. Los pilares conceptuales de este trabajo son:
+
+* *Modelo Entidad-Relación (MER):* Es una herramienta para el modelado de datos que permite representar las entidades relevantes de un sistema de información (como Jugador, Cancha, Reserva) y las relaciones entre ellas.
+* *Modelo Relacional:* Es el modelo de base de datos en el que se basa el diseño. Consiste en representar los datos en tablas (relaciones) compuestas por filas (tuplas) y columnas (atributos). Este modelo garantiza la integridad y consistencia de los datos mediante el uso de claves primarias (PK) y claves foráneas (FK).
+* *Sistema Gestor de Base de Datos (SGBD):* Es el software que permite definir, construir y manipular la base de datos, proporcionando mecanismos de control de acceso, concurrencia y recuperación de fallos.
+* *SQL (Structured Query Language):* Es el lenguaje estándar utilizado para gestionar y consultar bases de datos relacionales.
+
 ---
 
 ## CAPÍTULO IV: DESARROLLO DEL TEMA / PRESENTACIÓN DE RESULTADOS 
