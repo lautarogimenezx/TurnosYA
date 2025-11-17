@@ -83,4 +83,21 @@ El desarrollo de este proyecto, como requisito de la asignatura, debe involucrar
 
 Acceso al documento [PDF](https://github.com/lautarogimenezx/TurnosYA/blob/main/docs/Diccionario_de_Datos-TurnosYA.pdf) del diccionario de datos.
 
+## CAPÍTULO V: CONCLUSIONES
+
+En este capítulo se interpreta el sentido de los resultados encontrados en el capítulo anterior y se evalúa el cumplimiento de los objetivos del Trabajo Práctico.
+
+El desarrollo del proyecto ha permitido *alcanzar el objetivo general* de diseñar una base de datos robusta para automatizar el proceso de reserva de canchas. La información recogida durante la investigación, plasmada en los requisitos (Capítulo III), se ha traducido exitosamente en un modelo de datos (Capítulo IV) que responde a las necesidades detectadas.
+
+Analizando los *objetivos específicos* (Sección 1.3.2):
+
+1.  *Reservar turnos:* El diseño lo permite mediante la relación entre las tablas Jugador, Reserva y Cancha.
+2.  *Gestión del administrador:* Se cumple al incluir la entidad Canchero y relacionarla con la Reserva, permitiendo la modificación, cancelación (actualizando el campo estado en Estado_Reserva) y visualización de turnos.
+3.  *Integrar métodos de pago:* La tabla Estado_Reserva satisface este requisito al incluir los campos metodo_pago y estado_pago.
+4.  *Información centralizada:* El modelo relacional propuesto logra centralizar toda la información operativa en una única base de datos, garantizando la disponibilidad en tiempo real y respondiendo a la fundamentación inicial.
+
+En conclusión, el diseño de la base de datos "TurnosYA" soluciona los problemas de coordinación manual, errores de disponibilidad y falta de control de pagos identificados en el caso de estudio.
+
+---
+
 
